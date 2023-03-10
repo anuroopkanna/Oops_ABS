@@ -1,13 +1,15 @@
 package com.BridgeLabzABS;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBS {
-    ArrayList<Contacts> cDetails =new ArrayList<>();
-    Scanner sc =new Scanner(System.in);
-    public void addDetails(){
-        Contacts Details =new Contacts();
+    ArrayList<Contacts> cDetails = new ArrayList<>();
+    Scanner sc = new Scanner(System.in);
+
+    public void addDetails() {
+        Contacts Details = new Contacts();
 
         System.out.println("Enter First Name");
         Details.setFirstname(sc.nextLine());
@@ -43,81 +45,101 @@ public class AddressBS {
 
         cDetails.add(Details);
     }
-    public void dispalyContacts(){
+
+    public void dispalyContacts() {
         System.out.println(cDetails);
     }
-    public void edit(){
+
+    public void edit() {
         //edit the person details
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter the no of the person: ");
-        int sr=sc.nextInt();
+        int sr = sc.nextInt();
         System.out.println("For update: ");
         System.out.println("a)First Name \n b)LastName \n c)MobileNumber \n d) Address \n e)City \n f)State \n g)Zip \n h)EmailId");
         char update = sc.next().charAt(0);
-        switch (update){
+        switch (update) {
             case 'a': {
                 String updated = sc.nextLine();
                 String Firstname = updated;
                 System.out.println("First Name updated...");
                 break;
             }
-            case 'b':{
+            case 'b': {
                 String updated = sc.nextLine();
-                String LastName =updated;
+                String LastName = updated;
                 System.out.println("Last name updated...");
                 break;
             }
-            case 'c':{
+            case 'c': {
                 String updated = sc.nextLine();
                 String Mobilenumber = updated;
                 System.out.println(" Mobile No updated...");
                 break;
             }
-            case 'd':{
+            case 'd': {
                 String updated = sc.nextLine();
                 String Address = updated;
                 System.out.println("Address updated....");
                 break;
             }
-            case 'e':{
+            case 'e': {
                 String updated = sc.nextLine();
                 String City = updated;
                 System.out.println("City updated...");
                 break;
             }
-            case 'f':{
+            case 'f': {
                 String updated = sc.nextLine();
                 String State = updated;
                 System.out.println("State updated...");
                 break;
             }
-            case 'g':{
+            case 'g': {
                 String updated = sc.nextLine();
                 String Zip = updated;
                 System.out.println("Zip updated....");
                 break;
             }
-            case'h':{
+            case 'h': {
                 String updated = sc.nextLine();
                 String Emailid = updated;
                 System.out.println("Emailid updated...");
                 break;
             }
-            default:{
+            default: {
                 System.out.println("NO Changes");
             }
         }
+
     }
+
+    //method that delete a user resource
+    public void deleteContact() {
+        Iterator<Contacts> contactD = cDetails.iterator();
+        while (contactD.hasNext()) {
+            Contacts contacts = contactD.next();
+            contactD.remove();
+        }
+        System.out.println("Contacts removed");
+        dispalyContacts();
+    }
+
     public static void main(String[] args) {
         System.out.println("***** Welcome to the Address Based System *****");
-        AddressBS person1=new AddressBS();
+        AddressBS person1 = new AddressBS();
         person1.addDetails();
         person1.dispalyContacts();
         person1.edit();
-        AddressBS person2=new AddressBS();
+        AddressBS person2 = new AddressBS();
         person2.addDetails();
         person2.dispalyContacts();
         person2.edit();
+        person2.deleteContact();
+        AddressBS person3 = new AddressBS();
+        person3.addDetails();
+        person3.dispalyContacts();
+        person3.edit();
 
     }
 }
