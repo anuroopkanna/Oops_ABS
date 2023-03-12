@@ -8,53 +8,61 @@ public class AddressBS {
     ArrayList<Contacts> cDetails = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
 
-    public void addDetails() {
-        Contacts Details = new Contacts();
+    public Contacts addDetails() {
+        Contacts Person = new Contacts();
 
         System.out.println("Enter First Name");
-        Details.setFirstname(sc.nextLine());
-        Details.setFirstname(Details.getFirstname());
+        Person.setFirstname(sc.nextLine());
+
+
 
         System.out.println("Enter Last name");
-        Details.setLastname(sc.nextLine());
-        Details.setLastname(Details.getLastname());
+        Person.setLastname(sc.nextLine());
+
 
         System.out.println("MobileNumber");
-        Details.setMobilenumber(sc.nextLine());
-        Details.setMobilenumber(Details.getMobilenumber());
+        Person.setMobilenumber(sc.nextLine());
+
 
         System.out.println("Address");
-        Details.setAddress(sc.nextLine());
-        Details.setAddress(Details.getAddress());
+        Person.setAddress(sc.nextLine());
+
 
         System.out.println("City");
-        Details.setCity(sc.nextLine());
-        Details.setCity(Details.getCity());
+        Person.setCity(sc.nextLine());
+
 
         System.out.println("State");
-        Details.setState(sc.nextLine());
-        Details.setState(Details.getState());
+        Person.setState(sc.nextLine());
+
 
         System.out.println("Zip");
-        Details.setZip(sc.nextLine());
-        Details.setZip(Details.getZip());
+        Person.setZip(sc.nextLine());
+
 
         System.out.println("Email Id");
-        Details.setEmail(sc.nextLine());
-        Details.setEmail(Details.getEmail());
+        Person.setEmail(sc.nextLine());
 
-        cDetails.add(Details);
+        System.out.println("Create new contact");
+        return Person;
+    }
+    public void addContact(){
+        Scanner sc =new Scanner(System.in);
+        ArrayList<Contacts> cDetails =new ArrayList<>();
+        Contacts contactPerson = addDetails();
+        cDetails.add(contactPerson);
+        System.out.println(contactPerson);
+        System.out.println("Contact addded successfully...");
     }
 
-    public void dispalyContacts() {
-        System.out.println(cDetails);
-    }
+
 
     public void edit() {
         //edit the person details
+        boolean isContactFound= false;
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the no of the person: ");
-        int sr = sc.nextInt();
+        int  name  = sc.nextInt();
         System.out.println("For update: ");
         System.out.println("a)First Name \n b)LastName \n c)MobileNumber \n d) Address \n e)City \n f)State \n g)Zip \n h)EmailId");
         char update = sc.next().charAt(0);
@@ -111,6 +119,11 @@ public class AddressBS {
                 System.out.println("NO Changes");
             }
         }
+        if (isContactFound){
+            System.out.println("Contacts uploaded successfully");
+        }else {
+            System.out.println("Contacts not found");
+        }
 
     }
 
@@ -124,22 +137,13 @@ public class AddressBS {
         System.out.println("Contacts removed");
         dispalyContacts();
     }
+     void dispalyContacts() {
+         ArrayList<Contacts> cDetails = new ArrayList<>();
+         for (Contacts Person : cDetails) {
+             System.out.println(Person);
+         }
+     }
 
-    public static void main(String[] args) {
-        System.out.println("***** Welcome to the Address Based System *****");
-        AddressBS person1 = new AddressBS();
-        person1.addDetails();
-        person1.dispalyContacts();
-        person1.edit();
-        AddressBS person2 = new AddressBS();
-        person2.addDetails();
-        person2.dispalyContacts();
-        person2.edit();
-        person2.deleteContact();
-        AddressBS person3 = new AddressBS();
-        person3.addDetails();
-        person3.dispalyContacts();
-        person3.edit();
 
-    }
+
 }
