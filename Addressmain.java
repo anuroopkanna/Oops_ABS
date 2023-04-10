@@ -1,9 +1,9 @@
 package com.BridgeLabzABS;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Addressmain {
     HashMap<String ,AddressBS> hashMap = new HashMap<String,AddressBS>();
@@ -83,6 +83,26 @@ public class Addressmain {
         System.out.println(count+" Person Found!!! which belongs to " +cityname +" city");
         System.out.println(citylist);
     }
+    public void searchByState(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Press 1 to search person by using name of the city ");
+        System.out.println("Press 2 to search person by using name of the city ");
+        int num =sc.nextInt();
+        if(num==1){
+            searchBycity();
+        }else {
+            System.out.println("Enter the name of the city which you want to show");
+            String State = sc.next();
+            List<Contacts> Statelist = new ArrayList<>();
+            hashMap.values().stream().forEach(addressBook ->{
+                Statelist.addAll(addressBook.getContactBook().
+                        stream().filter(contact ->  contact.getCity().equalsIgnoreCase(State)).collect(Collectors.toList()));
+            });
+            int count = Statelist.size();
+            System.out.println(count+" Person Found!!! which belongs to " +State +" city");
+            System.out.println(Statelist);
+        }
+    }
     public static void main(String[] args) {
         System.out.println("***** Welcome to the Address Based System *****");
        /* AddressBS person1 = new AddressBS();
@@ -118,15 +138,20 @@ public class Addressmain {
                 case 4:
                     addressBSMain.Delete();
                     break;
-                case 8:
+                case 9:
                     flag=false;
                     break;
                 case 5:
                     addressBSMain.displayAllAddressbook();
+                    break;
                 case 6:
                     addressBSMain.AddAddressbook();
+                    break;
                 case 7:
                     addressBSMain.searchBycity();
+                    break;
+                case 8:
+                    addressBSMain.searchByState();
                 default:
                     System.out.println(option+"Enter s valid option");
                     break;
