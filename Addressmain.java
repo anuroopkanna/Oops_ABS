@@ -143,7 +143,7 @@ public class Addressmain {
                 case 4:
                     addressBSMain.Delete();
                     break;
-                case 9:
+                case 10:
                     flag=false;
                     break;
                 case 5:
@@ -157,6 +157,8 @@ public class Addressmain {
                     break;
                 case 8:
                     addressBSMain.searchByState();
+                case 9:
+                    addressBSMain.sort();
                 default:
                     System.out.println(option+"Enter s valid option");
                     break;
