@@ -17,6 +17,13 @@ public class AddressBS {
 
 
     ArrayList<Contacts> cDetails = new ArrayList<>();
+    public ArrayList<Contacts> getContactBook() {
+        return cDetails;
+    }
+
+    public void setContactBook(ArrayList<Contacts> contactBook) {
+        this.cDetails = contactBook;
+    }
     Scanner sc = new Scanner(System.in);
 
     public Contacts addDetails() {
@@ -57,7 +64,7 @@ public class AddressBS {
         return Person;
     }
 
-    public void addContact() {
+    public void AddContact() {
         Scanner sc = new Scanner(System.in);
         // ArrayList<Contacts> cDetails =new ArrayList<>();
         Contacts contactPerson = addDetails();
