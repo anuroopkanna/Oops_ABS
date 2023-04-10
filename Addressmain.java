@@ -1,8 +1,5 @@
 package com.BridgeLabzABS;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Addressmain {
@@ -81,6 +78,14 @@ public class Addressmain {
         });
         int count = citylist.size();
         System.out.println(count+" Person Found!!! which belongs to " +cityname +" city");
+        System.out.println(citylist);
+    }
+    public void sort(){
+        List<Contacts> citylist = new ArrayList<>();
+        hashMap.values().stream().forEach(addressBook ->{
+            citylist.addAll(addressBook.getContactBook().
+                    stream().sorted(Comparator.comparing(Contacts::getFirstname)).collect(Collectors.toList()));
+        });
         System.out.println(citylist);
     }
     public void searchByState(){
