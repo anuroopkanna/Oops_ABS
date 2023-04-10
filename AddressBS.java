@@ -5,6 +5,17 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBS {
+    private String AddressbookName;
+
+    public String getAddressbookName() {
+        return AddressbookName;
+    }
+
+    public void setAddressbookName(String addressbookName) {
+        AddressbookName = addressbookName;
+    }
+
+
     ArrayList<Contacts> cDetails = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
 
@@ -13,7 +24,6 @@ public class AddressBS {
 
         System.out.println("Enter First Name");
         Person.setFirstname(sc.nextLine());
-
 
 
         System.out.println("Enter Last name");
@@ -46,25 +56,25 @@ public class AddressBS {
         System.out.println("Create new contact");
         return Person;
     }
-    public void addContact(){
-        Scanner sc =new Scanner(System.in);
-        ArrayList<Contacts> cDetails =new ArrayList<>();
+
+    public void addContact() {
+        Scanner sc = new Scanner(System.in);
+        // ArrayList<Contacts> cDetails =new ArrayList<>();
         Contacts contactPerson = addDetails();
         cDetails.add(contactPerson);
-        System.out.println(contactPerson);
-        System.out.println("Contact addded successfully...");
+        //System.out.println(contactPerson);
+        System.out.println("Contact added successfully...");
     }
-
 
 
     public void edit() {
         //edit the person details
-        boolean isContactFound= false;
+        boolean isContactFound = false;
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the no of the person: ");
-        int  name  = sc.nextInt();
+        int name = sc.nextInt();
         System.out.println("For update: ");
-        System.out.println("a)First Name \n b)LastName \n c)MobileNumber \n d) Address \n e)City \n f)State \n g)Zip \n h)EmailId");
+        System.out.println("a)First Name \n b)Last name \n c)MobileNumber \n d) Address \n e)City \n f)State \n g)Zip \n h)EmailId");
         char update = sc.next().charAt(0);
         switch (update) {
             case 'a': {
@@ -81,8 +91,8 @@ public class AddressBS {
             }
             case 'c': {
                 String updated = sc.nextLine();
-                String Mobilenumber = updated;
-                System.out.println(" Mobile No updated...");
+                String MobileNumber = updated;
+                System.out.println(" MobileNumber updated...");
                 break;
             }
             case 'd': {
@@ -119,9 +129,9 @@ public class AddressBS {
                 System.out.println("NO Changes");
             }
         }
-        if (isContactFound){
+        if (isContactFound) {
             System.out.println("Contacts uploaded successfully");
-        }else {
+        } else {
             System.out.println("Contacts not found");
         }
 
@@ -137,13 +147,20 @@ public class AddressBS {
         System.out.println("Contacts removed");
         dispalyContacts();
     }
-     void dispalyContacts() {
-         ArrayList<Contacts> cDetails = new ArrayList<>();
-         for (Contacts Person : cDetails) {
-             System.out.println(Person);
-         }
-     }
 
+    void dispalyContacts() {
+        ArrayList<Contacts> cDetails = new ArrayList<>();
+        for (Contacts Person : cDetails) {
+            System.out.println(Person);
+        }
+    }
 
+    @Override
+    public String toString() {
+        return "AddressBook{" +
+                "AddressbookName='" + AddressbookName + '\'' +
+                ", contactBook=" + cDetails +
+                '}';
 
+    }
 }
