@@ -12,8 +12,10 @@ public class Contacts {
         this.state=state;
         this.email=email;
     }
-
-    public String getFirstname() {
+    String[] getContactStrings() {
+        return new String[] {getFirstName(), getLastName(), getCity(), getAddress(), getState(), getZip(), getPhoneNumber() + "", getEmail() + ""};
+    }
+    public String getFirstName() {
         return firstname;
     }
 
@@ -21,7 +23,7 @@ public class Contacts {
         this.firstname = firstname;
     }
 
-    public String getLastname() {
+    public String getLastName() {
         return lastname;
     }
 
@@ -29,7 +31,7 @@ public class Contacts {
         this.lastname = lastname;
     }
 
-    public String getMobilenumber() {
+    public String getPhoneNumber() {
         return mobilenumber;
     }
 
@@ -74,6 +76,20 @@ public class Contacts {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public JSONObject getContactJSON() {
+        JSONObject jsonPerson = new JSONObject();
+        jsonPerson.put("firstName", getFirstName());
+        jsonPerson.put("lastName", getLastName());
+        jsonPerson.put("city", getCity());
+        jsonPerson.put("address", getAddress());
+        jsonPerson.put("state", getState());
+        jsonPerson.put("zip", getZip());
+        jsonPerson.put("phonenumber", getPhoneNumber());
+        jsonPerson.put("email", getEmail());
+        JSONObject jsonPersonObject = new JSONObject();
+        jsonPersonObject.put("person", jsonPerson);
+        return jsonPersonObject;
     }
 
     @Override

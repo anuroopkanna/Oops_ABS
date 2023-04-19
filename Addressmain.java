@@ -1,10 +1,31 @@
 package com.BridgeLabzABS;
-import java.io.File;
-import java.io.IOException;
+//import java.io.*;
+//import java.nio.file.Files;
+//import java.nio.file.Paths;
+//import java.util.*;
+//import java.util.stream.Collectors;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
+import org.json.JSONArray;
+
+import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.nio.file.StandardOpenOption;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException
 
 public class Addressmain {
     HashMap<String ,AddressBS> hashMap = new HashMap<String,AddressBS>();
@@ -88,7 +109,7 @@ public class Addressmain {
         List<Contacts> citylist = new ArrayList<>();
         hashMap.values().stream().forEach(addressBook ->{
             citylist.addAll(addressBook.getContactBook().
-                    stream().sorted(Comparator.comparing(Contacts::getFirstname)).collect(Collectors.toList()));
+                    stream().sorted(Comparator.comparing(Contacts::getFirstName)).collect(Collectors.toList()));
         });
         System.out.println(citylist);
     }
@@ -128,13 +149,87 @@ public class Addressmain {
         }
     }
     private void readFromFile() {
-        String path = "C:\\Users\\anuro\\IdeaProjects\\ProjectAB\\src\\com\\BridgeLabzABS";
+        String path = "C:\\Users\\anuro\\IdeaProjects\\ProjectAB\\src\\com\\BridgeLabzABS\\addressbook.txt";
         System.out.println("Reading from : " + path + "\n");
         try {
             Files.lines(new File(path).toPath()).forEach(employeeDetails -> System.out.println(employeeDetails));
         }
         catch(IOException e){
             System.out.println("Catch block");
+        }
+    }
+    private void writetocsv() {
+        String csvPath = "C:\\Users\\anuro\\IdeaProjects\\ProjectAB\\src\\com\\BridgeLabzABS";
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(csvPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<String[]> csvLines = new ArrayList<String[]>();
+        CSVWriter writer = new CSVWriter(fileWriter);
+        String[] header = {"FirstName","LastName","Address","City","State","zip code","phone number","Email"};
+        writer.writeNext(header);
+        hashMap.keySet().stream().forEach(bookName -> hashMap.get(bookName).getContactBook()
+                .stream().forEach(person -> csvLines.add(person.getContactStrings())));
+        writer.writeAll(csvLines);
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void readfromcsv(){
+        // Reading CSV
+        String csvPath = "C:\\Users\\anuro\\IdeaProjects\\ProjectAB\\src\\com\\BridgeLabzABS";
+        FileReader fileReader = null;
+        try {
+            fileReader = new FileReader(csvPath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        CSVReader reader = new CSVReaderBuilder(fileReader).build();
+        List<String[]> linesOfData = null;
+        try {
+            linesOfData = reader.readAll();
+        } catch (IOException | CsvException e) {
+
+            e.printStackTrace();
+        }
+        System.out.println("\nReading data from csv file:");
+        linesOfData.stream().forEach(csvs -> {
+            for (String value : csvs)
+                System.out.print(value + "\t");
+            System.out.println();
+        });
+        try {
+            reader.close();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+    public <JSONParser> void writefromJson(){
+        JSONArray jsonPersons = new JSONArray();
+        hashMap.keySet().stream().forEach(bookname -> hashMap.get(bookname).getContactBook()
+                .stream().forEach(prsn -> jsonPersons.put((prsn.getContactJSON()))));
+
+        Path jsonPath = Paths.get("C:\\Users\\prajw\\IdeaProjects\\AddressBookMeven\\src\\main\\java\\com\\bridgelabz\\addressbook.json");
+        try {
+            Files.deleteIfExists(jsonPath);
+            Files.writeString(jsonPath, jsonPersons.toString(), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        JSONParser jsonParser = new JSONParser();
+        System.out.println("\nReading data from JSON file:");
+        try {
+            Object object = jsonParser.parse(Files.newBufferedReader(jsonPath));
+            JSONArray personsList = (JSONArray) object;
+            System.out.println(personsList);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
         }
     }
     public static void main(String[] args) {
