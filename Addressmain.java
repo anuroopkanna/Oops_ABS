@@ -1,4 +1,5 @@
 package com.BridgeLabzABS;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -126,6 +127,16 @@ public class Addressmain {
             System.out.println("Catch block");
         }
     }
+    private void readFromFile() {
+        String path = "C:\\Users\\anuro\\IdeaProjects\\ProjectAB\\src\\com\\BridgeLabzABS";
+        System.out.println("Reading from : " + path + "\n");
+        try {
+            Files.lines(new File(path).toPath()).forEach(employeeDetails -> System.out.println(employeeDetails));
+        }
+        catch(IOException e){
+            System.out.println("Catch block");
+        }
+    }
     public static void main(String[] args) {
         System.out.println("***** Welcome to the Address Based System *****");
        /* AddressBS person1 = new AddressBS();
@@ -178,6 +189,8 @@ public class Addressmain {
                     addressBSMain.searchByState();
                 case 9:
                     addressBSMain.sort();
+                case 10:
+                    addressBSMain.readFromFile();
                 default:
                     System.out.println(option+"Enter s valid option");
                     break;
