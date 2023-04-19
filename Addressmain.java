@@ -1,4 +1,7 @@
 package com.BridgeLabzABS;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -108,6 +111,21 @@ public class Addressmain {
             System.out.println(Statelist);
         }
     }
+    private void writeToFile() {
+        String path = "C:\\Users\\anuro\\IdeaProjects\\ProjectAB\\src\\com\\BridgeLabzABS";
+        StringBuffer addressBookBuffer = new StringBuffer();
+        hashMap.values().stream().forEach(contact -> {
+            String personDataString = contact.toString().concat("\n");
+            addressBookBuffer.append(personDataString);
+        });
+
+        try {
+            Files.write(Paths.get(path), addressBookBuffer.toString().getBytes());
+        }
+        catch (IOException e) {
+            System.out.println("Catch block");
+        }
+    }
     public static void main(String[] args) {
         System.out.println("***** Welcome to the Address Based System *****");
        /* AddressBS person1 = new AddressBS();
@@ -132,16 +150,17 @@ public class Addressmain {
             int option= sc.nextInt();
             switch (option){
                 case 1:
-                    addressBSMain.AddContacts();
+                    addressBSMain.AddContact();
+                    addressBSMain.writeToFile();
                     break;
                 case 2:
-                    addressBSMain.Edit();
+                    addressBSMain.edit();
                     break;
                 case 3:
-                    addressBSMain.Display();
+                    addressBSMain.dispalyContacts();
                     break;
                 case 4:
-                    addressBSMain.Delete();
+                    addressBSMain.deleteContact();
                     break;
                 case 10:
                     flag=false;
@@ -153,7 +172,7 @@ public class Addressmain {
                     addressBSMain.AddAddressbook();
                     break;
                 case 7:
-                    addressBSMain.searchBycity();
+                    addressBSMain.searchByCity();
                     break;
                 case 8:
                     addressBSMain.searchByState();

@@ -22,6 +22,7 @@ public class AddressBS {
     }
 
     public void setContactBook(ArrayList<Contacts> contactBook) {
+
         this.cDetails = contactBook;
     }
     Scanner sc = new Scanner(System.in);
